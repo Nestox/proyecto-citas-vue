@@ -84,44 +84,75 @@ button:hover {
 
 <template>
     <div class="subRow">
-        <button type="button" >Login</button>
+        <button type="button" v-on:click="modeSwitch=(modeSwitch) ? false : true" >Login</button>
     </div>
 
-    <div class="RegisterForm">
-        <form class="form">
-            <input placeholder="Enter your username" class="input" type="text">
-            <input placeholder="Enter your name" class="input" type="text">
-            <input placeholder="Enter your lastname" class="input" type="text">
-            <input placeholder="Enter your email" class="input" type="email">
-            <input placeholder="Enter your password" class="input" type="password">
-            <input placeholder="Enter your phone" class="input" type="tel">
-            <input placeholder="Enter your date" class="input" type="date">
+    <div class="RegisterForm" v-if="!modeSwitch">
+        <div class="form">
+            <input v-model="storeRegis.username" placeholder="Enter your username" class="input" type="text">
+            <input v-model="storeRegis.name" placeholder="Enter your name" class="input" type="text">
+            <input v-model="storeRegis.lastname" placeholder="Enter your lastname" class="input" type="text">
+            <input v-model="storeRegis.email" placeholder="Enter your email" class="input" type="email">
+            <input v-model="storeRegis.password" placeholder="Enter your password" class="input" type="password">
+            <input v-model="storeRegis.phone" placeholder="Enter your phone" class="input" type="tel">
+            <input v-model="storeRegis.date" placeholder="Enter your date" class="input" type="date">
 
-            <button>Submit</button>
-        </form>
+            <button v-on:click="register" >Submit</button>
+        </div>
     </div>
 
     <div class="LoginForm" v-if="modeSwitch">
-        <form class="form">
-            <input placeholder="Enter your username" class="input" type="text">
-            <input placeholder="Enter your password" class="input" type="password">
+        <div class="form">
+            <input v-model="storeLogin.username" placeholder="Enter your username" class="input" type="text">
+            <input v-model="storeLogin.password" placeholder="Enter your password" class="input" type="password">
 
-            <button>Submit</button>
-        </form>
+            <button v-on:click="login">Submit</button>
+            <button v-on:click="y">AAAAAAA</button>
+        </div>
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { tokenManager } from '@/stores/store';
+import { getRegister, getLogin } from './IOAPI';
 
-let modeSwitch = false
+const modeSwitch = ref(false)
 
-const requestLogin = {
-    method: 'POST',
-    headers: { 'username':'', 'password':''}
+const storeRegis=ref(
+    {
+        username: '',
+        name: '',
+        lastname: '',
+        email: '',
+        password: '',
+        phone: '',
+        date: ''
+    }
+)
+
+const storeLogin=ref(
+    {
+        username: '',
+        password: ''
+    })
+
+
+const register = () => {
+    storeRegis.value.date = storeRegis.value.date.split('-').reverse().join('/');
+    console.log(storeRegis.date);
+    const temp = getRegister(storeRegis.value);
+    console.log("Register result: ", temp);
 }
 
-async function registerUser(params) {
-    const response = await fetch('')
+const login = async () => {
+    const token = await getLogin(storeLogin.value);
+    console.log("token: ",token.access_token);
+    tokenManager().guardarToken(token.access_token);
+}
+
+const y = async () => {
+    console.log("tokendddd: ",tokenManager().llamarToken());
 }
 
 </script>
