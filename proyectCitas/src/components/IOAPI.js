@@ -30,3 +30,15 @@ export const getLogin = async (userData) =>{
     // console.log('userData:', userData);
     return tokenreturn;
 }
+
+export const getAllcentros = async () => {
+    const allCentros = APiCall('/centers', 'GET',tokenManager().llamarToken(),null)
+    console.log('centros: ', allCentros)
+    return allCentros
+}
+
+export const getProfile = async () => {
+    const profile = APiCall('/profile', 'GET',tokenManager().llamarToken(),null)
+    // console.log('profile: ', profile)
+    return profile
+}

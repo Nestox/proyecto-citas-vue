@@ -84,7 +84,7 @@ button:hover {
 
 <template>
     <div class="subRow">
-        <button type="button" v-on:click="modeSwitch=(modeSwitch) ? false : true" >Login</button>
+        <button type="button" v-on:click="modeSwitch=(modeSwitch) ? false : true, reglogbut = (reglogbut==='login') ? 'register' : 'login'">{{ reglogbut }}</button>
     </div>
 
     <div class="RegisterForm" v-if="!modeSwitch">
@@ -107,7 +107,7 @@ button:hover {
             <input v-model="storeLogin.password" placeholder="Enter your password" class="input" type="password">
 
             <button v-on:click="login">Submit</button>
-            <button v-on:click="y">AAAAAAA</button>
+            <!-- <button v-on:click="y">AAAAAAA</button> -->
         </div>
     </div>
 </template>
@@ -116,8 +116,12 @@ button:hover {
 import { ref } from 'vue';
 import { tokenManager } from '@/stores/store';
 import { getRegister, getLogin } from './IOAPI';
+import router from '@/router';
+
 
 const modeSwitch = ref(false)
+
+const reglogbut = ref('login')
 
 const storeRegis=ref(
     {
@@ -147,12 +151,13 @@ const register = () => {
 
 const login = async () => {
     const token = await getLogin(storeLogin.value);
-    console.log("token: ",token.access_token);
+    // console.log("token: ",token.access_token);
     tokenManager().guardarToken(token.access_token);
+    router.push("/main")
 }
 
-const y = async () => {
-    console.log("tokendddd: ",tokenManager().llamarToken());
-}
+// const y = async () => {
+//     console.log("tokendddd: ",tokenManager().llamarToken());
+// }
 
 </script>

@@ -1,12 +1,11 @@
-<script setup>
-import LoginComp from '@/components/loginComp.vue';
-
-</script>
-
 <template>
   <main>
-    <div class="mainContainer">
+    <div class="loginContainer">
       <LoginComp />
     </div>
   </main>
 </template>
+
+<script setup>
+import LoginComp from '@/components/loginComp.vue';
+</script>
