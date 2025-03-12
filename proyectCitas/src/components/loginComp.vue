@@ -83,9 +83,7 @@ button:hover {
 </style>
 
 <template>
-    <div class="subRow">
-        <button type="button" v-on:click="modeSwitch=(modeSwitch) ? false : true, reglogbut = (reglogbut==='login') ? 'register' : 'login'">{{ reglogbut }}</button>
-    </div>
+
 
     <div class="RegisterForm" v-if="!modeSwitch">
         <div class="form">
@@ -110,6 +108,10 @@ button:hover {
             <!-- <button v-on:click="y">AAAAAAA</button> -->
         </div>
     </div>
+    
+    <div class="subRow">
+        <button type="button" v-on:click="modeSwitch=(modeSwitch) ? false : true, reglogbut = (reglogbut==='login') ? 'register' : 'login'">{{ reglogbut }}</button>
+    </div>
 </template>
 
 <script setup>
@@ -119,7 +121,7 @@ import { getRegister, getLogin } from './IOAPI';
 import router from '@/router';
 
 
-const modeSwitch = ref(false)
+const modeSwitch = ref(true)
 
 const reglogbut = ref('login')
 
@@ -152,8 +154,14 @@ const register = () => {
 const login = async () => {
     const token = await getLogin(storeLogin.value);
     // console.log("token: ",token.access_token);
-    tokenManager().guardarToken(token.access_token);
-    router.push("/main")
+    if (token.msg === null || token.msg === undefined){
+        tokenManager().guardarToken(token.access_token);
+        router.push("/main")
+    }
+    else{
+        alert("Error: "+token.msg);
+        console.log("Error: ",token.msg);
+    }
 }
 
 // const y = async () => {

@@ -7,7 +7,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Centros Disponibles
                         </a>
@@ -16,11 +16,11 @@
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
                 <form class="d-flex" role="search">
                     <button type="button" class="btn px-3" v-on:click="changetheme()"><i class="bi bi-moon-stars"></i></button>
-                    <button class="btn btn-outline-primary" type="button">Log Out</button>
+                    <button class="btn btn-outline-primary" v-on:click="logout()" type="button">Log Out</button>
                 </form>
                 </div>
             </div>
@@ -30,6 +30,8 @@
 <script setup>
     import { ref } from 'vue';
     import { setTheme } from '@/stores/themejs';
+    import router from '@/router';
+    import { tokenManager } from '@/stores/store';
 
     const theme = ref('dark')
 
@@ -41,5 +43,10 @@
         else{
             theme.value = 'dark'
         }
+    }
+
+    function logout(){
+        tokenManager().borrarToken();
+        router.push('/')
     }
 </script>

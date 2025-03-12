@@ -35,13 +35,24 @@
     import navbar from '@/components/navbar.vue';
     import ProfileComp from '@/components/profileComp.vue';
     import RegCitaComp from '@/components/regCitaComp.vue';
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
+    import { tokenManager } from '@/stores/store';
+    import router from '@/router';
 
+    
     
     const option1 = ref(false)
     const option2 = ref(false)
     const option3 = ref(false)
-
+    
+    onMounted(() =>{
+        const localtoken = tokenManager().llamarToken()
+        // console.log(localtoken)
+        if (localtoken === null){
+            router.push('/')
+        }
+    })
+    
     function changeComp(id){
         if(id === 'centers'){
             option1.value = false

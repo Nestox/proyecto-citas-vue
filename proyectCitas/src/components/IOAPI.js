@@ -1,5 +1,6 @@
 const APIURL = "http://127.0.0.1:5000"
 
+import { tokenManager } from '@/stores/store';
 
 const APiCall=async(endpoint, method, token=null, body)=>{
     const headers = { 'Content-Type': 'application/json' };
@@ -31,6 +32,11 @@ export const getLogin = async (userData) =>{
     return tokenreturn;
 }
 
+export const updateUserData = async (userData) =>{
+    APiCall('/currentUser', 'PATCH', tokenManager().llamarToken(), userData)
+
+}
+
 export const getAllcentros = async () => {
     const allCentros = APiCall('/centers', 'GET',tokenManager().llamarToken(),null)
     console.log('centros: ', allCentros)
@@ -41,4 +47,15 @@ export const getProfile = async () => {
     const profile = APiCall('/profile', 'GET',tokenManager().llamarToken(),null)
     // console.log('profile: ', profile)
     return profile
+}
+
+export const getUserAppointments = async () => {
+    const userAppointments = APiCall('/date/getByUser', 'GET',tokenManager().llamarToken(),null)
+    // console.log('appointments: ', appointments)
+    return userAppointments
+}
+
+export const generateApppoitment = async (userData) => {
+    const appointment = APiCall('/date/create', 'POST', tokenManager().llamarToken(), userData)
+    return appointment
 }
