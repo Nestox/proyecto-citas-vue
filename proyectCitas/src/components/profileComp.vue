@@ -5,33 +5,42 @@
                 <h1>Perfil Personal</h1>
             </div>
         </div>
-        <div class="row">
-            <div class="col-1">
-
+        <div class="row ">
+            <div class="col-1 " >
+                <p class="border border-2 border-primary-subtle">Usuario</p>
+                <p class="border border-2 border-primary-subtle">Nombre</p>
+                <p class="border border-2 border-primary-subtle">Apellido/s</p>
+                <p class="border border-2 border-primary-subtle"><i class="bi bi-envelope-at-fill"></i></p>
+                <p class="border border-2 border-primary-subtle"><i class="bi bi-telephone-fill"></i></p>
+                <p class="border border-2 border-primary-subtle"><i class="bi bi-calendar-date-fill"></i></p>
             </div>
-            <div class="col-11" v-if="editing === false">
-                <p>{{ profile.username }}</p>
-                <p>{{ profile.name }}</p>
-                <p>{{ profile.lastname }}</p>
-                <p>{{ profile.email }}</p>
-                <p>{{ profile.phone }}</p>
-                <p>{{ profile.date }}</p>
+            <!-- #region Show User Profile Data-->
+            <div class="col-11 ps-2" v-if="editing === false">
+                <p class="border border-2 border-primary-subtle">{{ profile.username }}</p>
+                <p class="border border-2 border-primary-subtle">{{ profile.name }}</p>
+                <p class="border border-2 border-primary-subtle">{{ profile.lastname }}</p>
+                <p class="border border-2 border-primary-subtle">{{ profile.email }}</p>
+                <p class="border border-2 border-primary-subtle">{{ profile.phone }}</p>
+                <p class="border border-2 border-primary-subtle">{{ profile.date }}</p>
             </div>
-            <div class="col-11" v-if="editing === true">
+            <!--#endregion---->
+            <!-- #region Edit user Profile-->
+            <div class="col-5" v-if="editing === true">
                 <div class="form justify-content-center">
-                    <input                                 :placeholder =  "profile.username"   disabled    class="input row" type="text">
-                    <input v-model="storeEdit.name"        :placeholder =  "profile.name"           class="input row" type="text">
-                    <input v-model="storeEdit.lastname"    :placeholder =  "profile.lastname"       class="input row" type="text">
-                    <input v-model="storeEdit.email"       :placeholder =  "profile.email"          class="input row" type="email">
-                    <input v-model="storeEdit.password"    :placeholder =  "profile.password"       class="input row" type="password">
-                    <input v-model="storeEdit.phone"       :placeholder =  "profile.phone"          class="input row" type="tel">
-                    <input                                 :placeholder =  "profile.date"    disabled       class="input row mb-3" type="date ">
+                    <input                                 :placeholder =  "profile.username"   disabled    class="input row mb-2 bg-black border border-primary-subtle" type="text">
+                    <input v-model="storeEdit.name"        :placeholder =  "profile.name"                   class="input row mb-2 bg-transparent border border-primary-subtle" type="text">
+                    <input v-model="storeEdit.lastname"    :placeholder =  "profile.lastname"               class="input row mb-2 bg-transparent border border-primary-subtle" type="text">
+                    <input v-model="storeEdit.email"       :placeholder =  "profile.email"                  class="input row mb-2 bg-transparent border border-primary-subtle" type="email">
+                    <input v-model="storeEdit.password"    :placeholder =  "profile.password"               class="input row mb-2 bg-transparent border border-primary-subtle" type="password">
+                    <input v-model="storeEdit.phone"       :placeholder =  "profile.phone"                  class="input row mb-2 bg-transparent border border-primary-subtle" type="tel">
+                    <input                                 :placeholder =  "profile.date"    disabled       class="input row mb-2 bg-black border border-primary-subtle" type="date ">
 
                     <button v-on:click="register" class="mb-3" >Submit</button>
                 </div>
             </div>
+            <!--#endregion---->
         <div class="row justify-content-center pb-3" v-if="editing === false">
-            <button type="button" class="btn btn-primary" v-on:click="editProfile">Editar Usuario</button>
+            <button type="button" class="btn btn-primary " v-on:click="editProfile">Editar Usuario</button>
         </div>
     </div>
     </div>
