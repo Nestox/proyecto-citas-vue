@@ -32,6 +32,10 @@
 <script setup>
     import { onMounted, ref } from 'vue';
     import { getAllcentros } from './IOAPI';
+    import gsap from 'gsap';
+    
+
+    
 
 
     onMounted(()=>{
@@ -61,5 +65,6 @@
             console.error('Error fetching centers:', error)
         }
     }
+    
     
 </script>

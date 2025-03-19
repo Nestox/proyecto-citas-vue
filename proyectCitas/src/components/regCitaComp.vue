@@ -85,6 +85,9 @@
 <script setup>
     import { onMounted, ref } from 'vue';
     import { generateApppoitment, getAllcentros, getUserAppointments, deleteAppointment } from './IOAPI';
+    
+    import { Swal, swal } from 'sweetalert2/dist/sweetalert2';
+
 
     onMounted(() => {
         requestCenters();

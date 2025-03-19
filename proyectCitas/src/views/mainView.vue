@@ -14,7 +14,7 @@
                 <button type="button" id="btn-userProf" class="btn btn-secondary" v-on:click="changeComp('userProf')">Perfil de usuario</button>
             </div>
         </div>
-        <div class="row bg-secondary">
+        <div class="row bg-secondary anidisplay" id="anidisplay">
             <div class="col-12">
                 <span class="centerComp" v-if="option2">
                     <AvailableCenters />
@@ -38,7 +38,7 @@
     import { onMounted, ref } from 'vue';
     import { tokenManager } from '@/stores/store';
     import router from '@/router';
-
+    import gsap from 'gsap';
     
     
     const option1 = ref(false)
@@ -51,6 +51,7 @@
         if (localtoken === null){
             router.push('/')
         }
+        
     })
     
     function changeComp(id){
@@ -61,6 +62,11 @@
             document.getElementById('centers').setAttribute('class', 'col-4 p-2 bg-secondary')
             document.getElementById('regCita').setAttribute('class', 'col-4 p-2')
             document.getElementById('userProf').setAttribute('class', 'col-4 p-2')
+            
+            // rotate and move elements with a class of "box"
+            // ("x" is a shortcut for a translateX() transform) over the course of 1 second.
+            gsap.fromTo(".anidisplay",{opacity: 0}, { opacity: 1, duration: 0.5 });
+            // document.getElementById('anidisplay').setAttribute('class', 'row bg-secondary z-n1')
         }
         if(id === 'regCita'){
             option1.value = true
@@ -69,6 +75,10 @@
             document.getElementById('regCita').setAttribute('class', 'col-4 p-2 bg-secondary')
             document.getElementById('centers').setAttribute('class', 'col-4 p-2')
             document.getElementById('userProf').setAttribute('class', 'col-4 p-2')
+
+            // gsap.fromTo(".anidisplay",{y: -200}, { y: 0, duration: 1 });
+            gsap.fromTo(".anidisplay",{opacity: 0}, { opacity: 1, duration: 0.5 });
+            // document.getElementById('anidisplay').setAttribute('class', 'row bg-secondary z-n1')
         }
         if(id === 'userProf'){
             option1.value = false
@@ -77,7 +87,11 @@
             document.getElementById('regCita').setAttribute('class', 'col-4 p-2')
             document.getElementById('centers').setAttribute('class', 'col-4 p-2')
             document.getElementById('userProf').setAttribute('class', 'col-4 p-2 bg-secondary')
+
+            // gsap.fromTo(".anidisplay",{y: -200}, { y: 0, duration: 1 });
+            gsap.fromTo(".anidisplay",{opacity: 0}, { opacity: 1, duration: 0.5 });
+            // document.getElementById('anidisplay').setAttribute('class', 'row bg-secondary z-n1')
         }
     }
-
+    
 </script>
