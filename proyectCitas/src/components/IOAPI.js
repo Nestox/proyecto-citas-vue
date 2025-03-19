@@ -64,3 +64,4 @@ export const deleteAppointment = async (userData) =>{
     const yeetApointment = APiCall('/date/delete', 'POST', tokenManager().llamarToken(), userData)
     return yeetApointment
 }
+
